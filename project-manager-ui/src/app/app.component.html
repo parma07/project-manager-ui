@@ -1,8 +1,17 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>  
+<div>
+  <h2>
+    Welcome to {{ title }}
+  </h2> 
 </div>
+<ul class="nav">
+  <li class="nav-item">
+    <a id="viewtask" class="nav-link" routerLink="/viewtask" routerLinkActive="active" style="padding-left: 0">View Task</a>
+  </li>
+  <li class="nav-item">
+    <a id="addtask" class="nav-link" routerLink="/addtask" routerLinkActive="active">Add Task</a>
+  </li>
+</ul> 
+
 
 <router-outlet></router-outlet>

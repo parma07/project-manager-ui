@@ -1,0 +1,131 @@
+<h3>View Task</h3>
+<div class="form-group row">
+    <label for="taskName" class="col-sm-2 col-form-level">Task:</label>
+    <div class="col-sm-4">
+        <input type="text" class="form-control" id="taskName1" [(ngModel)]="searchString">
+    </div>
+    <label for="taskParent" class="col-sm-2 col-form-level">Parent Task:</label>
+    <div class="col-sm-4">
+        <input type="text" class="form-control" id="parentTask1" [(ngModel)]="parentTaskSearchString">
+    </div>  
+</div>
+<div class="form-group row">
+  <label for="priorityFrom" class="col-sm-1 col-form-label">Priority From:</label>
+  <div class="col-sm-1">
+    <input type="text" class="form-control" id="priorityFrom">
+  </div>
+  <label for="priorityTo" class="col-sm-1 col-form-label">Priority To:</label>
+  <div class="col-sm-2">
+    <input type="text" class="form-control" id="priorityTo">
+  </div>
+  <label for="startDate" class="col-sm-1 col-form-label" >Start Date:</label>
+  <div class="col-sm-2">
+    <input type="text" class="form-control" id="startDate" [(ngModel)]="startDateSearchString">
+  </div>
+  <label for="endDate" class="col-sm-1 col-form-label">End Date:</label>
+  <div class="col-sm-2">
+    <input type="text" class="form-control" id="endDate" [(ngModel)]="endDateSearchString">
+  </div>
+</div>
+<hr size="pixels" class="style4" />
+
+<div *ngFor="let task of taskList | viewTask:searchString : parentTaskSearchString : startDateSearchString : endDateSearchString; let i = index">
+  <div class="form-row" id="{{i}}">
+    <div class="form-group col-md-2">
+      <label for="taskName">Task</label>
+      <div class="card">
+        <div class="card-body" id="taskName">{{task.taskName}}</div>
+      </div>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="parentTask">Parent Task</label>
+      <div class="card">
+        <div class="card-body" id="parentTask">{{task.parentTask.parentTask}}</div>
+      </div>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="priority">Priority</label>
+      <div id="priority">{{task.priority}}</div>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="startDat">Start Date</label>
+      <div id="startDat">{{task.startDate}}</div>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="endDat">End Date</label>
+      <div id="endDat">{{task.endDate}}</div>
+    </div>
+    <div class="form-group col-md-1">
+      <label for="btn"></label>
+      <button type="button" class="btn1" [disabled]="task.editEnabled==='Y'" (click)="openModal(template,i)">Edit</button>
+    </div>
+    <div class="form-group col-md-1">
+      <label for="btn2"></label>
+      <button type="button" class="btn2" [disabled]="task.editEnabled==='Y'" (click)="endTask(i)">End Task</button>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Update Task</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="successMessage">
+      <div class="alert alert-success alert-dismissible">
+        <span>{{successMessage}}</span>
+      </div>
+    </div>
+    <form class="needs-validation"  #addForm novalidate>
+        <div class="form-group required row">
+          <label for="taskName2" class="col-sm-2 col-form-label required1">Task:</label>
+          <div class="col-sm-6">
+            <input type="text" name="taskName2" class="form-control" id="taskName2" [(ngModel)]="taskList[index].taskName" required>
+            <div class="invalid-feedback">Task is mandatory field</div>
+          </div>
+        </div>
+      
+        <div class="form-group required row">
+          <label for="priority2" class="col-sm-2 col-form-label required">Priority:</label>
+          <div class="col-sm-6">
+            <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
+            <span class="font-weight-bold indigo-text ml-2 mt-1 pd-80">30</span>
+            <input type="range"  name="priority2" id ="priority2" min="0" max="30" class="custom-range" [(ngModel)]="taskList[index].priority" >
+          </div>
+          <div class="invalid-feedback">Priority is mandatory field</div>
+        </div>
+      
+        <div class="form-group row">
+          <label for="parentTask2" class="col-sm-2 col-form-label">Parent Task:</label>
+          <div class="col-sm-6">
+            <input type="text" name="parentTask2"  class="form-control" id="parentTask2" [(ngModel)]="taskList[index].parentTask.parentTask">
+          </div>
+        </div>
+      
+        <div class="form-group required row">
+          <label for="startDate2" class="col-sm-2 col-form-label">Start Date:</label>
+          <div class="col-sm-6">
+            <input type="text"  name="startDate2" class="form-control" placeholder="DD/MM/YYYY" id="startDate2" [(ngModel)]="taskList[index].startDate" >
+          </div>
+        </div>
+      
+        <div class="form-group required row">
+          <label for="endDate2" class="col-sm-2 col-form-label">End Date:</label>
+          <div class="col-sm-6">
+            <input type="text"  name="endDate2" class="form-control" placeholder="DD/MM/YYYY" id="endDate2" [(ngModel)]="taskList[index].endDate" >
+          </div>
+        </div>
+    
+    <div class="form-group row">
+      <div class="col-sm-3"></div>
+      <button type="button" class="btn btn-sm btn-primary" style="margin:10px" [disabled]= "(taskList[index].taskName == null || taskList[index].parentTask.parentTask == null || taskList[index].startDate == null || taskList[index].endDate == null)" (click)="saveOrUpdateTask(index)">Update</button>      
+      <button type="button" class="btn btn-sm btn-primary" style="margin:10px"  (click)="closeModal()">Close</button>
+      <div class="col-sm-2"></div>
+    </div>
+    </form>
+  </div>
+</ng-template>
