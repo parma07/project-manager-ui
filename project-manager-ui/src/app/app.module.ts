@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { ViewTaskComponent} from './view-task/view-task.component';
+import { UserComponent } from './add-user/user.component';
 import { AppService } from './service/app.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
@@ -15,7 +16,7 @@ import { ViewTaskPipe } from './filter/view-task.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent, AddTaskComponent, ViewTaskComponent, ViewTaskPipe
+    AppComponent, AddTaskComponent, ViewTaskComponent, UserComponent, ViewTaskPipe
   ],
   imports: [
     BrowserModule,
