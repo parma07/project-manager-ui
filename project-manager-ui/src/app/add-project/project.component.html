@@ -1,0 +1,28 @@
+<div class="container">
+    <div>
+        <form class="needs-validation"  #addForm novalidate>
+            <div class="form-group required row">
+                <label for="firstName" class="col-sm-2 col-form-label required">Project:</label>
+                <div class="col-sm-6">
+                <input type="text" name="project" class="form-control" id="project" [(ngModel)]="project.project" required>        
+                <div class="invalid-feedback">Project Name is mandatory field</div>
+                </div>
+            </div>
+            <div class="form-group required row">
+                <label for="lastName" class="col-sm-2 col-form-label required">priority:</label>
+                <div class="col-sm-6">
+                <input type="text" name="priority" class="form-control" id="priority" [(ngModel)]="project.priority" required>        
+                <div class="invalid-feedback">Manager is mandatory field</div>
+                </div>
+            </div>          
+            <div class="form-group row">
+            <div class="col-sm-3"></div>
+            <button type="button" id="add" class=".btn-primary" style="margin:10px" (click)="saveOrUpdateProject()">Add Project</button>
+            <button type="button" id="reset" class=".btn-primary" style="margin:10px" (click)="reset()">Reset</button>
+            <div class="col-sm-2"></div>
+            </div>
+        </form>
+    </div>
+
+
+</div>

@@ -3,10 +3,10 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { TaskModel } from '../model/Task.model';
 import { ResponseModel } from '../model/response.model';
-import { TaskConstant } from '../constants/task.constants';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { UserModel } from '../model/user.model';
+import { ProjectModel } from '../model/project.model';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -41,7 +41,19 @@ export class AppService {
 
     public getUsers(): Observable<any>{
       return this._httpClient.post<ResponseModel<UserModel>>("api/pm/user/getUsers", httpOptions).pipe(
-        tap((res: ResponseModel<UserModel>) => console.log(`het user list`)),
+        tap((res: ResponseModel<UserModel>) => console.log(`get user list`)),
+        catchError(this.handleError));
+    }
+
+    public saveProject(project : ProjectModel): Observable<any> {
+      return this._httpClient.post<ProjectModel>("api/pm/project/saveProject", project, httpOptions).pipe(
+        tap((project: ProjectModel) => console.log(`added project w/ project=${project.project}`)),
+        catchError(this.handleError));
+    } 
+
+    public getProjects(): Observable<any>{
+      return this._httpClient.post<ResponseModel<ProjectModel>>("api/pm/project/getProjects", httpOptions).pipe(
+        tap((res: ResponseModel<ProjectModel>) => console.log(`get rpoject list`)),
         catchError(this.handleError));
     }
 
