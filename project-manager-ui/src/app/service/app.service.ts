@@ -39,5 +39,11 @@ export class AppService {
         catchError(this.handleError));
     } 
 
+    public getUsers(): Observable<any>{
+      return this._httpClient.post<ResponseModel<UserModel>>("api/pm/user/getUsers", httpOptions).pipe(
+        tap((res: ResponseModel<UserModel>) => console.log(`het user list`)),
+        catchError(this.handleError));
+    }
+
 
 }

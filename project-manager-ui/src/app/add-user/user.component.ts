@@ -10,9 +10,20 @@ import { AppService } from '../service/app.service';
 })
 export class UserComponent implements OnInit{
     user : UserModel;
+    userList : UserModel[];
 
-    ngOnInit(){}
+    ngOnInit(){
+        this.getAllUser();
+    }
 
+    getAllUser(){
+        this._appService.getUsers()
+        .subscribe(res => {
+        this.userList = res.outData;
+        console.log("from add User component:"+this.userList);
+        });
+    }
+    
     constructor(private _appService: AppService) { 
     this.user = new UserModel();    
     }
@@ -30,6 +41,11 @@ export class UserComponent implements OnInit{
         this.user.lastName='';
         this.user.employeeId='';
        
-      }
+    }
+
+    public availableForEdit(userId : string):void{
+        console.log("userid for edit:"+userId);
+        this.user=this.userList.find(u => u.userId==userId);
+    }
 
 }
