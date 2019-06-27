@@ -2,19 +2,50 @@
     <div>
         <form class="needs-validation"  #addForm novalidate>
             <div class="form-group required row">
-                <label for="firstName" class="col-sm-2 col-form-label required">Project:</label>
-                <div class="col-sm-6">
+                <label for="firstName" class="col-sm-4 col-form-label required">Project:</label>
+                <div class="col-sm-8">
                 <input type="text" name="project" class="form-control" id="project" [(ngModel)]="project.project" required>        
                 <div class="invalid-feedback">Project Name is mandatory field</div>
                 </div>
             </div>
-            <div class="form-group required row">
-                <label for="lastName" class="col-sm-2 col-form-label required">priority:</label>
-                <div class="col-sm-6">
-                <input type="text" name="priority" class="form-control" id="priority" [(ngModel)]="project.priority" required>        
-                <div class="invalid-feedback">Manager is mandatory field</div>
+            <div class="row">
+                <div class="col-md-4">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input" [(ngModel)]="checkboxValue" [checked]="checkboxValue"
+                        [ngModelOptions]="{standalone: true}" (change)="setStartAndEndDate()" name="setStartEndDate"
+                        id="setStartEndDate">Set Start and End Date
+                    </label>
+                  </div>
                 </div>
-            </div>          
+                <div class="col-sm-4">
+                  <input type="date" name="startdate" class="form-control" id="startDate"
+                    placeholder="Start Date" name="startDate" [(ngModel)]=project.startDate>                                    
+                </div>        
+                <div class="col-sm-4">
+                  <input type="date" name="endDate" class="form-control mb-2 mr-sm-2" id="endDate"
+                    placeholder="End Date" name="endDate" [(ngModel)]=project.endDate>                  
+                </div>        
+                <div class="col-md-3"></div>
+              </div>            
+            <div class="form-group required row">
+                <label for="priority" class="col-sm-2 col-form-label required">Priority:</label>
+                <div class="col-sm-8">
+                  <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
+                  <span class="font-weight-bold indigo-text ml-2 mt-1 pd-90">30</span>
+                  <input type="range"  name="priority"  min="0" max="30" class="custom-range" [(ngModel)]="project.priority" >
+                </div>
+                <div class="invalid-feedback">Priority is mandatory field</div>
+            </div>
+            <div class="form-group required row">
+                <label for="firstName" class="col-sm-4 col-form-label required">Manager:</label>
+                <div class="col-sm-8">
+                <input type="text" name="manager" class="form-control" id="project" [(ngModel)]="project.manager" required>        
+                <div class="invalid-feedback">Project Manager is mandatory field</div>
+                </div>
+            </div>
+              
+              
             <div class="form-group row">
             <div class="col-sm-3"></div>
             <button type="button" id="add" class=".btn-primary" style="margin:10px" (click)="saveOrUpdateProject()">Add Project</button>
