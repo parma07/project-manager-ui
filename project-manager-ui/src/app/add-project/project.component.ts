@@ -3,6 +3,7 @@ import { ProjectModel } from '../model/project.model';
 import { AppService } from '../service/app.service';
 import { DatePipe } from '@angular/common';
 
+
 @Component({
     selector:'project',
     templateUrl: './project.component.html',

@@ -2,58 +2,165 @@
     <div>
         <form class="needs-validation"  #addForm novalidate>
             <div class="form-group required row">
-                <label for="firstName" class="col-sm-4 col-form-label required">Project:</label>
-                <div class="col-sm-8">
+                <label for="firstName" class="col-sm-2 col-form-label required">Project:</label>
+                <div class="col-sm-6">
                 <input type="text" name="project" class="form-control" id="project" [(ngModel)]="project.project" required>        
                 <div class="invalid-feedback">Project Name is mandatory field</div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input" [(ngModel)]="checkboxValue" [checked]="checkboxValue"
-                        [ngModelOptions]="{standalone: true}" (change)="setStartAndEndDate()" name="setStartEndDate"
-                        id="setStartEndDate">Set Start and End Date
-                    </label>
-                  </div>
+              <div class="col-md-2">
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="checkboxValue" [checked]="checkboxValue"
+                      [ngModelOptions]="{standalone: true}" (change)="setStartAndEndDate()" name="setStartEndDate"
+                      id="setStartEndDate">Set Start and End Date
+                  </label>
                 </div>
-                <div class="col-sm-4">
-                  <input type="date" name="startdate" class="form-control" id="startDate"
-                    placeholder="Start Date" name="startDate" [(ngModel)]=project.startDate>                                    
-                </div>        
-                <div class="col-sm-4">
-                  <input type="date" name="endDate" class="form-control mb-2 mr-sm-2" id="endDate"
-                    placeholder="End Date" name="endDate" [(ngModel)]=project.endDate>                  
-                </div>        
-                <div class="col-md-3"></div>
-              </div>            
+              </div>
+              <div class="col-sm-3">
+                <input type="date" name="startdate" class="form-control" id="startDate"
+                  placeholder="Start Date" name="startDate" [(ngModel)]=project.startDate>                                    
+              </div>        
+              <div class="col-sm-3">
+                <input type="date" name="endDate" class="form-control mb-2 mr-sm-2" id="endDate"
+                  placeholder="End Date" name="endDate" [(ngModel)]=project.endDate>                  
+              </div>              
+            </div>
             <div class="form-group required row">
                 <label for="priority" class="col-sm-2 col-form-label required">Priority:</label>
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                   <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
                   <span class="font-weight-bold indigo-text ml-2 mt-1 pd-90">30</span>
                   <input type="range"  name="priority"  min="0" max="30" class="custom-range" [(ngModel)]="project.priority" >
                 </div>
                 <div class="invalid-feedback">Priority is mandatory field</div>
             </div>
-            <div class="form-group required row">
-                <label for="firstName" class="col-sm-4 col-form-label required">Manager:</label>
-                <div class="col-sm-8">
-                <input type="text" name="manager" class="form-control" id="project" [(ngModel)]="project.manager" required>        
-                <div class="invalid-feedback">Project Manager is mandatory field</div>
-                </div>
-            </div>
-              
-              
+            <div class="row">
+              <div class="col-md-2">
+                <label for="projectId" >Manager:</label>
+              </div>
+              <div class="col-md-3">
+                <input type="number"name="user_id" class="form-control mb-2 mr-sm-2" id="managerName"
+                  placeholder="Enter Manager name" name="managerName">                
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-secondary rounded-circle" (click)="open()">Search</button>
+              </div>              
+            </div>             
             <div class="form-group row">
             <div class="col-sm-3"></div>
-            <button type="button" id="add" class=".btn-primary" style="margin:10px" (click)="saveOrUpdateProject()">Add Project</button>
-            <button type="button" id="reset" class=".btn-primary" style="margin:10px" (click)="reset()">Reset</button>
-            <div class="col-sm-2"></div>
+            <button type="button" id="add" class="btn btn-secondary" style="margin:10px" (click)="saveOrUpdateProject()">Add Project</button>
+            <button type="button" id="reset" class="btn btn-secondary" style="margin:10px" (click)="reset()">Reset</button>
+            <div class="col-sm-3"></div>
             </div>
         </form>
     </div>
 
+    <div class="row">
+      <div class="col">
+        <span layout="row">
+          <hr flex />
+          <hr flex /></span>
+      </div>
+    </div>
 
+
+    <div>
+      <form>
+        <div class="row">
+          <div class="col-md-2">
+            <input type="text" class="form-control mb-2 mr-sm-2" id="searchValue" placeholder="Search..."
+               name="searchValue">
+          </div>
+          <div class="col-md-1">
+            <label i18n="@@project_id3">Sort By:</label>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-3">
+                <button type="submit" (click)="sort('startDate')" class="btn btn-secondary">Start
+                  Date</button>
+              </div>
+              <div class="col-md-3">
+                <button type="submit" (click)="sort('endDate')" class="btn btn-secondary" >End
+                  Date</button>
+              </div>
+              <div class="col-md-3">
+                <button type="submit" (click)="sort('priority')" class="btn btn-secondary"
+                  i18n="@@addTask">Priority</button>
+              </div>
+              <div class="col-md-3">
+                <button type="submit" (click)="sort('priority')" class="btn btn-secondary"
+                  i18n="@@addTask">Completed</button>
+              </div>
+            </div>
+  
+          </div>
+          <div class="col-md-3"></div>
+        </div>
+      </form>
+    </div>
+
+    <div *ngFor="let project of projectList">
+      <div class="row">
+        <div class="col">
+          <span layout="row">
+            <hr flex /></span>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-2">Project:</div>
+        <div class="col-md-6">
+          <div class="rounded bg-light text-dark">{{project.project}}</div>
+        </div>
+        <div class="col-md-1">Priority</div>
+        <div class="col-md-1">
+          <button type="submit"  class="btn btn-secondary">Edit</button>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">No of Tasks:</div>
+        <div class="col-md-2">
+          <div class="rounded bg-light text-dark">{{project.priority}}</div>
+        </div>
+        <div class="col-md-2">Completed:</div>
+        <div class="col-md-2">
+          <div class="rounded bg-light text-dark">{{project.priority}}</div>
+        </div>
+        <div class="col-md-1">
+          <div class="rounded bg-light text-dark">{{project.priority}}</div>
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">Start Date:</div>
+        <div class="col-md-2">
+          <div class="rounded bg-light text-dark">{{project.startDate | date: 'MMM d, y'}}</div>
+        </div>
+        <div class="col-md-2">End Date:</div>
+        <div class="col-md-2">
+          <div class="rounded bg-light text-dark">{{project.endDate | date: 'MMM d, y'}}</div>
+        </div>
+        <div class="col-md-1">
+          <div class="rounded bg-light text-dark"> </div>
+        </div>
+        <div class="col-md-1">
+          <div *ngIf="project.status=='ACTIVE'">
+            <button type="submit" (click)="suspendProject(project.projectId)" class="btn btn-secondary">Suspend</button>
+          </div>
+  
+          <div *ngIf="project.status=='SUSPENDED'">
+            <button type="submit" (click)="activeProject(project.projectId)" class="btn btn-secondary">Active</button>
+          </div>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    
 </div>
