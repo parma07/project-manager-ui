@@ -13,11 +13,13 @@ import { AppService } from './service/app.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ViewTaskPipe } from './filter/view-task.pipe';
+import { SearchFilterPipe } from './shared/search-by.pipe';
+import { SortByPipe } from './shared/sort-by.pipe';
 
 
 @NgModule({
   declarations: [
-    AppComponent, AddTaskComponent, ViewTaskComponent, UserComponent,ProjectComponent, ViewTaskPipe
+    AppComponent, AddTaskComponent, ViewTaskComponent, UserComponent,SortByPipe,SearchFilterPipe,ProjectComponent, ViewTaskPipe
   ],
   imports: [
     BrowserModule,

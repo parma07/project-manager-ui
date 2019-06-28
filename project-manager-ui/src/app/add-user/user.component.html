@@ -24,8 +24,8 @@
         </div>
     <div class="form-group row">
     <div class="col-sm-3"></div>
-    <button type="button" id="add" class="btn btn-secondary" style="margin:10px" (click)="saveOrUpdateUser()">Add User</button>
-    <button type="button" id="reset" class="btn btn-secondary" style="margin:10px" (click)="reset()">Reset</button>
+    <button type="button" id="add" class="btn btn-secondary"  (click)="saveOrUpdateUser()">Add User</button>
+    <button type="button" id="reset" class="btn btn-secondary"  (click)="reset()">Reset</button>
     <div class="col-sm-2"></div>
     </div>
 </form>
@@ -35,7 +35,7 @@
       <div class="row">
         <div class="col-md-3">
           <input type="text" class="form-control mb-2 mr-sm-2" id="searchValue" placeholder="Search..."
-            [(ngModel)]="searchFilter" name="searchValue">
+            [(ngModel)]="searchFilter.firstName" name="searchValue">
         </div>
         <div class="col-md-1">
           <label>Sort:</label>
@@ -55,9 +55,7 @@
       </div>
     </form>
   </div>
-</div>
-
-<div *ngFor="let user of userList">
+  <div *ngFor="let user of userList | sortBy:sortingName:isDesc | searchFilter: searchFilter">
     <div class="row">
         <div class="col">
             <span layout="row">
@@ -86,3 +84,6 @@
         </div>                
     </div>
 </div>
+
+</div>
+

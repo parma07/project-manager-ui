@@ -35,7 +35,7 @@ export class AppService {
 
     public saveUser(user : UserModel): Observable<any> {
       return this._httpClient.post<UserModel>("api/pm/user/saveUser", user, httpOptions).pipe(
-        tap((user: UserModel) => console.log(`added user w/ employeeId=${user.employeeId}`)),
+        tap((user: UserModel) => console.log(`added user w/ employeeId=${user.firstName}`)),
         catchError(this.handleError));
     } 
 

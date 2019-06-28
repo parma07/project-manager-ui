@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { UserModel } from '../model/user.model';
 import { AppService } from '../service/app.service';
+import { SearchFilter } from '../model/search-filter.model';
 
 
 @Component({
@@ -9,6 +10,9 @@ import { AppService } from '../service/app.service';
     styleUrls : ['./user.component.scss']
 })
 export class UserComponent implements OnInit{
+    searchFilter: SearchFilter = new SearchFilter();    
+    sortingName: string;
+    isDesc: boolean;
     user : UserModel;
     userList : UserModel[];
 
@@ -47,5 +51,10 @@ export class UserComponent implements OnInit{
         console.log("userid for edit:"+userId);
         this.user=this.userList.find(u => u.userId==userId);
     }
+
+    sort(name: string): void {
+        console.log("inside sort"+name);        
+        this.sortingName = name;
+      }
 
 }
