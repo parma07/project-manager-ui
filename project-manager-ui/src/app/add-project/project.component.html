@@ -74,7 +74,7 @@
                name="searchValue">
           </div>
           <div class="col-md-1">
-            <label i18n="@@project_id3">Sort By:</label>
+            <label>Sort By:</label>
           </div>
           <div class="col-md-6">
             <div class="row">
@@ -87,12 +87,10 @@
                   Date</button>
               </div>
               <div class="col-md-3">
-                <button type="submit" (click)="sort('priority')" class="btn btn-secondary"
-                  i18n="@@addTask">Priority</button>
+                <button type="submit" (click)="sort('priority')" class="btn btn-secondary">Priority</button>
               </div>
               <div class="col-md-3">
-                <button type="submit" (click)="sort('priority')" class="btn btn-secondary"
-                  i18n="@@addTask">Completed</button>
+                <button type="submit" (click)="sort('noOfTaskCompleted')" class="btn btn-secondary">Completed</button>
               </div>
             </div>
   
@@ -125,11 +123,11 @@
       <div class="row">
         <div class="col-md-2">No of Tasks:</div>
         <div class="col-md-2">
-          <div class="rounded bg-light text-dark">{{project.priority}}</div>
+          <div class="rounded bg-light text-dark">{{project.noOfTask}}</div>
         </div>
         <div class="col-md-2">Completed:</div>
         <div class="col-md-2">
-          <div class="rounded bg-light text-dark">{{project.priority}}</div>
+          <div class="rounded bg-light text-dark">{{project.noOfTaskCompleted}}</div>
         </div>
         <div class="col-md-1">
           <div class="rounded bg-light text-dark">{{project.priority}}</div>

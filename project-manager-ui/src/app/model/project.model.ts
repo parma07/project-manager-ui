@@ -4,6 +4,9 @@ export class ProjectModel{
     startDate:string;
     endDate:string;
     priority:string;
+    noOfTask:number;
+    noOfTaskCompleted:number;
+
 
     
 }
