@@ -11,6 +11,8 @@ export class TaskModel{
     // below fields are used for filtering data
     priorityFrom:number;
     priorityTo:number;
+    projectId:string;
+    userId:string;
 }
 
  

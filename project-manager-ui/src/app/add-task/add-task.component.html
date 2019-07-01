@@ -1,6 +1,22 @@
 <div class="container">
     <h3>Add Task</h3>
 <form class="needs-validation"  #addForm novalidate>
+    <div class="row">
+        <div class="col-md-2">
+          <label for="projectId" class="mb-2 mr-sm-1">Project:</label>
+        </div>
+        <div class="col-md-5">
+          <input type="text" class="form-control mb-2 mr-sm-2" id="project" [(ngModel)]="task.projectId"
+            placeholder="Enter Projec id" name="project">
+        </div>
+        <div class="col-md-1">
+          <button type="button" [disabled]="isEditTask || parentCheckbox" class="btn btn-secondary rounded-circle"
+            (click)="open(projectContent)">Search</button>
+        </div>
+
+        <div class="col-md-4"></div>
+      </div>
+
   <div class="form-group required row">
     <label for="taskName" class="col-sm-2 col-form-label required1">Task:</label>
     <div class="col-sm-6">
@@ -19,12 +35,40 @@
     <div class="invalid-feedback">Priority is mandatory field</div>
   </div>
 
-  <div class="form-group row">
-    <label for="parentTask" class="col-sm-2 col-form-label">Parent Task:</label>
-    <div class="col-sm-6">
-      <input type="text" name="parentTask"  class="form-control" id="parentTask" [(ngModel)]="task.parentTask.parentTask">
+  <div class="row">
+    <div class="col-md-2">
+      <label for="parentTaskId" class="mb-2 mr-sm-1" >Parent Task:</label>
     </div>
+    <div class="col-md-5">
+      <input type="text" class="form-control mb-2 mr-sm-2" id="parentTaskId"
+        placeholder="Enter Parent Task id" name="parentTaskId" [(ngModel)]="task.parentTask.parentTask">
+    </div>
+
+    <div class="col-md-1">
+      <button type="button" [disabled]="parentCheckbox" class="btn btn-secondary rounded-circle"
+        (click)="open(parentContent)">Search</button>
+    </div>
+
+    <div class="col-md-4"></div>
   </div>
+
+  <br />
+
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" [(ngModel)]="parentCheckbox" [checked]="parentCheckbox"
+            [ngModelOptions]="{standalone: true}" (change)="toggle()" name="checkParentTask"
+            id="checkParentTask">Parent Task
+        </label>
+      </div>
+    </div>
+    <div class="col-md-6"></div>
+  </div>
+
+  <br />
 
   <div class="form-group required row">
     <label for="startDate" class="col-sm-2 col-form-label">Start Date:</label>
@@ -40,14 +84,106 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-md-2">
+      <label for="userId" class="mb-2 mr-sm-1">User:</label>
+    </div>
+    <div class="col-md-5">
+      <input type="text" class="form-control mb-2 mr-sm-2" id="userId"
+        placeholder="Enter User id" name="userId" [(ngModel)]="task.userId">
+    </div>
+
+    <div class="col-md-1">
+      <button type="button" [disabled]="isEditTask || parentCheckbox" class="btn btn-secondary rounded-circle"
+        (click)="open(userContent)">Search</button>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
+
   <div class="form-group row">
     <div class="col-sm-3"></div>
     <button type="button" id="add" class="btn btn-secondary" [disabled]="(task.taskName==null ||task.taskName=='' || task.startDate==null|| task.startDate==''|| task.endDate==null|| task.endDate=='')" style="margin:10px" (click)="saveOrUpdateTask()">Add Task</button>
     <button type="button" id="reset" class="btn btn-secondary" style="margin:10px" (click)="reset()">Reset</button>
     <div class="col-sm-2"></div>
-  </div>
-  
-
-  
+  </div>  
 </form>
+
+
+
+<div>
+  <ng-template #projectContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Project</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="projectList">Select a Project</label>
+          <div class="input-group">
+            <div *ngFor="let project of projectList">
+              <br />
+              <input name="options" type="radio" [(ngModel)]="parentProject" [ngModelOptions]="{standalone: true}"
+                value="{{project.projectId}}" (change)="modal.close(project)" /> {{project.project}}
+              <br />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>
+<div>
+  <ng-template #parentContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Parent</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="parentTaskList">Select a Parent</label>
+          <div class="input-group">
+            <div *ngFor="let parent of parentTaskList">
+              <br />
+              <input name="options" type="radio" [(ngModel)]="parentTask" [ngModelOptions]="{standalone: true}"
+                value="{{parent.parentId}}" (change)="modal.close(parent)" /> {{parent.parentTask}}
+              <br />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>
+<div>
+  <ng-template #userContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">User</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="userList">Select a User</label>
+          <div class="input-group">
+            <div *ngFor="let user of userList">
+              <br />
+              <input name="options" type="radio" [(ngModel)]="userId" [ngModelOptions]="{standalone: true}"
+                value="{{user.userId}}" (change)="modal.close(user)" /> {{user.firstName}} {{user.lastName}}
+              <br />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>
 </div>

@@ -15,6 +15,11 @@ export class UserComponent implements OnInit{
     isDesc: boolean;
     user : UserModel;
     userList : UserModel[];
+    alert: any = {
+        type: 'success',
+        msg: '',
+        timeout: 5000
+      };
 
     ngOnInit(){
         this.getAllUser();
@@ -35,7 +40,7 @@ export class UserComponent implements OnInit{
     public saveOrUpdateUser() : void{        
         console.log("User Form Submitted"+this.user.employeeId);
         this._appService.saveUser(this.user).subscribe(res => {
-
+            this.alert.msg= res.status;            
         });
     }
 
@@ -44,6 +49,7 @@ export class UserComponent implements OnInit{
         this.user.firstName='';
         this.user.lastName='';
         this.user.employeeId='';
+        this.alert.msg= '';
        
     }
 
@@ -53,8 +59,12 @@ export class UserComponent implements OnInit{
     }
 
     sort(name: string): void {
-        console.log("inside sort"+name);        
-        this.sortingName = name;
+        if (name && this.sortingName !== name) {
+            this.isDesc = false;
+          } else {
+            this.isDesc = !this.isDesc;
+          }
+          this.sortingName = name;
       }
 
 }

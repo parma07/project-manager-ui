@@ -11,7 +11,6 @@ export class SearchFilterPipe implements PipeTransform {
     OBJECT_TYPE = 'object';
 
     transform(values: object[], searchFilter: SearchFilter) {
-
         if (!values || !searchFilter) {
             return values;
         }

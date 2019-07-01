@@ -7,6 +7,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { UserModel } from '../model/user.model';
 import { ProjectModel } from '../model/project.model';
+import { ParentTaskModel } from '../model/parent-task.model';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -26,6 +27,14 @@ export class AppService {
       tap((res: ResponseModel<TaskModel>) => console.log(`added task w/ id=${res.status}`)),
       catchError(this.handleError));  
     }
+
+    public getAllParentTasks(): Observable<any> {      
+      return this._httpClient.post<ResponseModel<ParentTaskModel>>("/api/pm/parenttask/getParentTasks", httpOptions).pipe(
+      tap((res: ResponseModel<ParentTaskModel>) => console.log(`added task w/ id=${res.status}`)),
+      catchError(this.handleError));  
+    }
+
+
 
     public saveTask(task: TaskModel): Observable<any> {    
       return this._httpClient.post<TaskModel>("api/pm/task/saveTask", task, httpOptions).pipe(
@@ -54,6 +63,12 @@ export class AppService {
     public getProjects(): Observable<any>{
       return this._httpClient.post<ResponseModel<ProjectModel>>("api/pm/project/getProjects", httpOptions).pipe(
         tap((res: ResponseModel<ProjectModel>) => console.log(`get rpoject list`)),
+        catchError(this.handleError));
+    }
+
+    public getAllUsersWithNoProject(): Observable<any>{
+      return this._httpClient.post<ResponseModel<UserModel>>("api/pm/user/getUsersWithNoProject", httpOptions).pipe(
+        tap((res: ResponseModel<UserModel>) => console.log(`Get Users with No Project`)),
         catchError(this.handleError));
     }
 

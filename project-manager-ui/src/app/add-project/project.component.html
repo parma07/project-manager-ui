@@ -41,20 +41,47 @@
                 <label for="projectId" >Manager:</label>
               </div>
               <div class="col-md-3">
-                <input type="number"name="user_id" class="form-control mb-2 mr-sm-2" id="managerName"
-                  placeholder="Enter Manager name" name="managerName">                
+                <input type="text"name="userId" class="form-control mb-2 mr-sm-2" id="managerName"
+                  placeholder="Enter Manager name" [(ngModel)]="project.manager" name="managerName">                
               </div>
               <div class="col-md-4">
-                <button type="button" class="btn btn-secondary rounded-circle" (click)="open()">Search</button>
+                <button type="button" class="btn btn-secondary rounded-circle" (click)="open(content)">Search</button>
               </div>              
             </div>             
             <div class="form-group row">
             <div class="col-sm-3"></div>
-            <button type="button" id="add" class="btn btn-secondary" style="margin:10px" (click)="saveOrUpdateProject()">Add Project</button>
+            <button type="button" id="add" class="btn btn-secondary" [disabled]="(project.project==null ||project.project=='' || project.manager==null || project.manager=='' || project.startDate==null || project.startDate=='' || project.endDate==null || project.endDate=='' )" 
+              style="margin:10px" (click)="saveOrUpdateProject()">Add Project</button>
             <button type="button" id="reset" class="btn btn-secondary" style="margin:10px" (click)="reset()">Reset</button>
             <div class="col-sm-3"></div>
             </div>
         </form>
+    </div>
+
+    <div>
+      <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">User</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="dateOfBirth">Select Manager</label>
+              <div class="input-group">
+                <div *ngFor="let user of userList">
+                  <br />
+                <input name="options" type="radio" [(ngModel)]="projectManager" [ngModelOptions]="{standalone: true}"
+                    value="{{user.userId}}" (change)="modal.close(user)" /> {{user.firstName}} {{user.lastName}}
+                  <br />
+                </div>  
+              </div>
+            </div>
+          </form>
+        </div>
+      </ng-template>
     </div>
 
     <div class="row">
@@ -71,7 +98,7 @@
         <div class="row">
           <div class="col-md-2">
             <input type="text" class="form-control mb-2 mr-sm-2" id="searchValue" placeholder="Search..."
-               name="searchValue">
+            [(ngModel)]="searchFilter.projectName" name="searchValue">
           </div>
           <div class="col-md-1">
             <label>Sort By:</label>
@@ -100,7 +127,7 @@
       </form>
     </div>
 
-    <div *ngFor="let project of projectList">
+    <div *ngFor="let project of projectList | sortBy:sortingName:isDesc | searchFilter:searchFilter">
       <div class="row">
         <div class="col">
           <span layout="row">
@@ -115,7 +142,7 @@
         </div>
         <div class="col-md-1">Priority</div>
         <div class="col-md-1">
-          <button type="submit"  class="btn btn-secondary">Edit</button>
+          <button type="submit"  class="btn btn-secondary" (click)="availableForEdit(project.projectId)">Edit</button>
         </div>
         <div class="col-md-2"></div>
       </div>

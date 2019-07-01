@@ -1,4 +1,5 @@
 export class ProjectModel{
+    projectId:string;
     project:string;
     manager:string;
     startDate:string;
