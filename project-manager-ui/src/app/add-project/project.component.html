@@ -178,11 +178,11 @@
         </div>
         <div class="col-md-1">
           <div *ngIf="project.status=='ACTIVE'">
-            <button type="submit" (click)="suspendProject(project.projectId)" class="btn btn-secondary">Suspend</button>
+            <button type="submit" (click)="suspendProject(project)" class="btn btn-secondary">Suspend</button>
           </div>
   
           <div *ngIf="project.status=='SUSPENDED'">
-            <button type="submit" (click)="activeProject(project.projectId)" class="btn btn-secondary">Active</button>
+            <button type="submit" (click)="activeProject(project)" class="btn btn-secondary">Active</button>
           </div>
         </div>
         <div class="col-md-2"></div>

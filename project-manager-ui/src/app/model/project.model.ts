@@ -7,7 +7,7 @@ export class ProjectModel{
     priority:string;
     noOfTask:number;
     noOfTaskCompleted:number;
-
+    status:string;
 
     
 }

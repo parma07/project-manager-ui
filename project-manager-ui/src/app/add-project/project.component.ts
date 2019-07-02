@@ -5,6 +5,7 @@ import { AppService } from '../service/app.service';
 import { DatePipe } from '@angular/common';
 import { SearchFilter } from '../model/search-filter.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { projection } from '@angular/core/src/render3';
 
 @Component({
     selector:'project',
@@ -23,6 +24,7 @@ export class ProjectComponent implements OnInit{
     datePipe: DatePipe = new DatePipe("en-US");
     closeResult: string;
     manager: UserModel = new UserModel();
+    tempUser: UserModel;
 
     ngOnInit(){
         this.getAllProject();
@@ -62,9 +64,25 @@ export class ProjectComponent implements OnInit{
 
     public saveOrUpdateProject() : void{        
         console.log("Project Form Submitted"+this.project.project);
+        console.log("Project Form Submitted1"+this.project.manager);        
+        this.tempUser = this.userList.find(u => (u.firstName+" "+u.lastName)==this.project.manager);
+        this.project.manager = this.tempUser.userId;
+        console.log("Project Form Submitted2"+this.project.manager);
         this._appService.saveProject(this.project).subscribe(res => {
 
-        });
+        });        
+    }
+
+    public suspendProject(project : ProjectModel): void {
+      project.status = "SUSPENDED";
+      this._appService.saveProject(project).subscribe(res => {
+      });      
+    }
+
+    public activeProject(project : ProjectModel): void {
+      project.status = "ACTIVE";
+      this._appService.saveProject(project).subscribe(res => {
+      });      
     }
 
     public reset():void{
@@ -110,12 +128,14 @@ export class ProjectComponent implements OnInit{
         }
       }
 
-      private setFormValueUserId(selectedUser: UserModel) {        
-        console.log("selected User:"+selectedUser.userId);    
-      }
-
-      public availableForEdit(projectId : string):void{
-        console.log("projectid for edit:"+projectId);
-        this.project=this.projectList.find(p => p.projectId==projectId);
+    private setFormValueUserId(selectedUser: UserModel) {        
+      console.log("selected User:"+selectedUser.userId);    
     }
+
+    public availableForEdit(projectId : string):void{
+      console.log("projectid for edit:"+projectId);
+      this.project=this.projectList.find(p => p.projectId==projectId);
+    }
+
+    
 }
