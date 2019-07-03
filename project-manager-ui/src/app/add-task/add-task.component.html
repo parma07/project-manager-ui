@@ -109,6 +109,10 @@
   </div>  
 </form>
 
+<div *ngIf="alert.msg">
+  <alert [type]="alert.type" [dismissible]="true">{{ alert.msg }}</alert>
+</div>
+
 
 
 <div>

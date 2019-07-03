@@ -5,6 +5,7 @@ export class TaskModel{
     taskName:string;
     priority:string;
     parentTask:ParentTaskModel;
+    //parentId: string;
     startDate:string;
     endDate:string;
     editEnabled:string;
