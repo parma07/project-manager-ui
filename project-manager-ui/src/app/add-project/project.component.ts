@@ -25,6 +25,12 @@ export class ProjectComponent implements OnInit{
     closeResult: string;
     manager: UserModel = new UserModel();
     tempUser: UserModel;
+    alert: any = {
+      type: 'success',
+      msg: '',
+      timeout: 5000
+    };
+
 
     ngOnInit(){
         this.getAllProject();
@@ -34,7 +40,7 @@ export class ProjectComponent implements OnInit{
         this._appService.getProjects()
         .subscribe(res => {
         this.projectList = res.outData;
-        console.log("from add Porject component:"+this.projectList);
+        //console.log("from add Porject component:"+this.projectList);
         });
     }
 
@@ -42,7 +48,7 @@ export class ProjectComponent implements OnInit{
         this._appService.getAllUsersWithNoProject()
         .subscribe(res => {
             this.userList = res.outData;
-        console.log("from add Porject component to get User List with no Project:"+this.userList);
+        //console.log("from add Porject component to get User List with no Project:"+this.userList);
         });
       }
     
@@ -69,8 +75,10 @@ export class ProjectComponent implements OnInit{
         this.project.manager = this.tempUser.userId;
         console.log("Project Form Submitted2"+this.project.manager);
         this._appService.saveProject(this.project).subscribe(res => {
-
-        });        
+          this.alert.msg= res.status; 
+        });
+        this.getAllProject();
+        this.reset();  
     }
 
     public suspendProject(project : ProjectModel): void {
@@ -86,15 +94,18 @@ export class ProjectComponent implements OnInit{
     }
 
     public reset():void{
-        console.log("Project Form reset");
+        //console.log("Project Form reset");
         this.project.project='';
         this.project.manager='';
         this.project.priority='';
+        this.project.startDate='';
+        this.project.endDate='';
+        this.checkboxValue=false;
        
     }
 
     sort(name: string): void {
-        console.log("sort project list by "+name);
+        //console.log("sort project list by "+name);
         if (name && this.sortingName !== name) {
           this.isDesc = false;
         } else {
@@ -104,14 +115,10 @@ export class ProjectComponent implements OnInit{
       }      
 
       open(content: any) {
-        console.log("sort project list by "+content);
+        //console.log("sort project list by "+content);
         this.findAllUsersWithNoProject();
-        this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((user) => {
-         //this.setFormValueUserId(user);
-        // console.log("UaserID:"+user.userId);
-        // console.log("First NAme:"+user.firstName); 
-         this.project.manager=user.firstName+" "+user.lastName;
-        // this.project.manager=user;   
+        this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((user) => {       
+         this.project.manager=user.firstName+" "+user.lastName;        
           this.closeResult = `Closed with: ${user}`;
         }, (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -129,11 +136,11 @@ export class ProjectComponent implements OnInit{
       }
 
     private setFormValueUserId(selectedUser: UserModel) {        
-      console.log("selected User:"+selectedUser.userId);    
+      //console.log("selected User:"+selectedUser.userId);    
     }
 
     public availableForEdit(projectId : string):void{
-      console.log("projectid for edit:"+projectId);
+      //console.log("projectid for edit:"+projectId);
       this.project=this.projectList.find(p => p.projectId==projectId);
     }
 

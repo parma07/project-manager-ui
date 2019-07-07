@@ -58,6 +58,10 @@
         </form>
     </div>
 
+    <div *ngIf="alert.msg">
+      <alert [type]="alert.type" [dismissible]="true">{{ alert.msg }}</alert>
+   </div>
+
     <div>
       <ng-template #content let-modal>
         <div class="modal-header">
