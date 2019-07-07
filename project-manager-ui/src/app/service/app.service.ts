@@ -34,13 +34,17 @@ export class AppService {
       catchError(this.handleError));  
     }
 
-
-
     public saveTask(task: TaskModel): Observable<any> {    
       return this._httpClient.post<TaskModel>("api/pm/task/saveTask", task, httpOptions).pipe(
         tap((task: TaskModel) => console.log(`added task w/ id=${task.taskName}`)),
         catchError(this.handleError));            
       }
+
+    public editTask(task : TaskModel) : Observable<any>{      
+      return this._httpClient.post<TaskModel>("/api/pm/task/updateTaskEditEnabled", task, httpOptions).pipe(
+        tap((task: TaskModel) => console.log(`completed task w/ id=${task.taskName}`)),
+        catchError(this.handleError));
+    }
 
     public saveUser(user : UserModel): Observable<any> {
       return this._httpClient.post<UserModel>("api/pm/user/saveUser", user, httpOptions).pipe(
