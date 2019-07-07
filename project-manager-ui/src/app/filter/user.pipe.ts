@@ -7,7 +7,7 @@ import { UserModel } from '../model/user.model';
   })
 export class UserPipe implements PipeTransform {
     transform(users: UserModel[], searchString:String): any [] {    
-        console.log('val',searchString);
+        //console.log('val',searchString);
         if (!searchString) {
           return users;
         }

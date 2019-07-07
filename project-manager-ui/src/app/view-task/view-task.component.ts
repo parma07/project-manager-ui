@@ -78,7 +78,7 @@ export class ViewTaskComponent implements OnInit{
     }
 
     sort(name: string): void {
-      console.log("sort project list by "+name);
+      //console.log("sort project list by "+name);
       if (name && this.sortingName !== name) {
         this.isDesc = false;
       } else {

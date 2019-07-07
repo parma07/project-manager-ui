@@ -9,7 +9,7 @@ import { TaskModel } from '../model/task.model';
   })
 export class ViewTaskPipe implements PipeTransform {
     transform(tasks: TaskModel[], searchString:String, parentTaskSearchString:String, startDateSearchString:string, endDateSearchString:string, projectSearchString:string): any [] {    
-        console.log('val',searchString, parentTaskSearchString);
+        //console.log('val',searchString, parentTaskSearchString);
         if (!searchString && !parentTaskSearchString && !startDateSearchString && !endDateSearchString && !projectSearchString) {
           return tasks;
         }

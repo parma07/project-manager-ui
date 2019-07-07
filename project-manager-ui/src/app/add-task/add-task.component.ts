@@ -82,12 +82,12 @@ export class AddTaskComponent implements OnInit{
           //console.log("ProjectId:" + response['project'] + "," + response['firstName'] + "," + response['parentTask']);
     
           if (response['project']) {
-            console.log("response.Project:::::::"+response.project);
+            //console.log("response.Project:::::::"+response.project);
             this.task.projectId=response.project;           
           } else if (response['firstName']) {
             this.task.userId=response.firstName+" "+response.lastName;            
           } else if (response['parentTask']) {
-            console.log("response.Project:::::::"+response.parentTask);
+            //console.log("response.Project:::::::"+response.parentTask);
             this.task.parentTask.parentTask=response.parentTask;            
           }
           this.closeResult = `Closed with: ${response}`;
@@ -107,29 +107,29 @@ export class AddTaskComponent implements OnInit{
       }
 
       private getParentTaskList() {
-        console.log("inside get parent list");
+        //console.log("inside get parent list");
         this._appService.getAllParentTasks()
         .subscribe((res: any) => {
           this.parentTaskList = res.outData;
-          console.log("from getParentTaskList() Parent Task List:"+this.parentTaskList);
+          //console.log("from getParentTaskList() Parent Task List:"+this.parentTaskList);
         });
       }
     
       private getUserList() {
-        console.log("inside get user list");
+        //console.log("inside get user list");
         this._appService.getAllUsersWithNoProject()
         .subscribe(res => {
             this.userList = res.outData;
-        console.log("from getUserList()  User List with no Project:"+this.userList);
+        //console.log("from getUserList()  User List with no Project:"+this.userList);
         });
       }
 
       private findAllActiveProjects(){
-        console.log("inside get active Project list");
+        //console.log("inside get active Project list");
         this._appService.findAllActiveProjects()
         .subscribe(res => {
             this.projectList = res.outData;
-        console.log("from findAllActiveProjects() with Project:"+this.projectList);
+        //console.log("from findAllActiveProjects() with Project:"+this.projectList);
         });
       }
 
