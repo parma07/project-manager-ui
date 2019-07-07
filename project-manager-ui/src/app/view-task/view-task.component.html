@@ -140,7 +140,7 @@
     <div class="form-group col-md-1">
       <label for="btn2"></label>
       <div *ngIf="task.status=='OPEN'">
-        <button type="button" class="btn btn-secondary" [disabled]="task.editEnabled==='Y'" (click)="endTask(i)">End</button>
+        <button type="button" class="btn btn-secondary" [disabled]="task.editEnabled==='Y'" (click)="endTask(i)">End Task</button>
       </div>
       <div *ngIf="task.status=='COMPLETED'">
           <button type="button" class="btn btn-secondary" [disabled]="task.editEnabled==='F'" >Completed</button>

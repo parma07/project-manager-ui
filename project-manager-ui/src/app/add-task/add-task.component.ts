@@ -122,8 +122,8 @@ export class AddTaskComponent implements OnInit{
       }
 
       private findAllActiveProjects(){
-        console.log("inside get Project list");
-        this._appService.getProjects()
+        console.log("inside get active Project list");
+        this._appService.findAllActiveProjects()
         .subscribe(res => {
             this.projectList = res.outData;
         console.log("from findAllActiveProjects() with Project:"+this.projectList);

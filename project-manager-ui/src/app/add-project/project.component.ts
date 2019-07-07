@@ -25,6 +25,7 @@ export class ProjectComponent implements OnInit{
     closeResult: string;
     manager: UserModel = new UserModel();
     tempUser: UserModel;
+    editProject :boolean = false;
     alert: any = {
       type: 'success',
       msg: '',
@@ -70,9 +71,13 @@ export class ProjectComponent implements OnInit{
 
     public saveOrUpdateProject() : void{        
         console.log("Project Form Submitted"+this.project.project);
-        console.log("Project Form Submitted1"+this.project.manager);        
-        this.tempUser = this.userList.find(u => (u.firstName+" "+u.lastName)==this.project.manager);
-        this.project.manager = this.tempUser.userId;
+        console.log("Project Form Submitted1"+this.project.manager);
+        console.log("this.project.editable:"+this.project.editable);
+        if(this.project.editable !=null && this.project.editable == false){
+          this.tempUser = this.userList.find(u => (u.firstName+" "+u.lastName)==this.project.manager);        
+          console.log("this.tempUser::::"+this.tempUser);
+          this.project.manager = this.tempUser.userId;
+        }       
         console.log("Project Form Submitted2"+this.project.manager);
         this._appService.saveProject(this.project).subscribe(res => {
           this.alert.msg= res.status; 
@@ -141,7 +146,9 @@ export class ProjectComponent implements OnInit{
 
     public availableForEdit(projectId : string):void{
       //console.log("projectid for edit:"+projectId);
+      
       this.project=this.projectList.find(p => p.projectId==projectId);
+      this.project.editable=true;
     }
 
     

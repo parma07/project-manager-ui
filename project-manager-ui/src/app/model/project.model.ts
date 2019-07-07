@@ -8,6 +8,7 @@ export class ProjectModel{
     noOfTask:number;
     noOfTaskCompleted:number;
     status:string;
+    editable:boolean=false;
 
     
 }

@@ -70,6 +70,12 @@ export class AppService {
         catchError(this.handleError));
     }
 
+    public findAllActiveProjects(): Observable<any>{
+      return this._httpClient.post<ResponseModel<ProjectModel>>("api/pm/project/getAllActiveProjects", httpOptions).pipe(
+        tap((res: ResponseModel<ProjectModel>) => console.log(`get Active Project list`)),
+        catchError(this.handleError));
+    }
+
     public getAllUsersWithNoProject(): Observable<any>{
       return this._httpClient.post<ResponseModel<UserModel>>("api/pm/user/getUsersWithNoProject", httpOptions).pipe(
         tap((res: ResponseModel<UserModel>) => console.log(`Get Users with No Project`)),
