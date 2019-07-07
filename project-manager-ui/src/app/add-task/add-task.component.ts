@@ -41,19 +41,19 @@ export class AddTaskComponent implements OnInit{
       }
 
     public saveOrUpdateTask(): void {
-        console.log("task data"+this.task.taskName);
+        //console.log("task data"+this.task.taskName);
         this.tempUser = this.userList.find(u => (u.firstName+" "+u.lastName)==this.task.userId);
         this.task.userId = this.tempUser.userId;
-        console.log("Project Form userId"+this.task.userId);
+        //console.log("Project Form userId"+this.task.userId);
 
         this.tempProject = this.projectList.find(p => p.project == this.task.projectId)
         this.task.projectId=this.tempProject.projectId;
-        console.log("Project Form projectId"+this.task.projectId);
+        //console.log("Project Form projectId"+this.task.projectId);
 
         this.tempParentTask = this.parentTaskList.find(t => t.parentTask == this.task.parentTask.parentTask);
         this.task.parentTask.parentId= this.tempParentTask.parentId;
         //this.task.parentId = this.tempParentTask.parentId;
-        console.log("Project Form parent-taskId"+this.task.parentTask.parentId);
+        //console.log("Project Form parent-taskId"+this.task.parentTask.parentId);
 
 
 
@@ -73,10 +73,10 @@ export class AddTaskComponent implements OnInit{
       }
 
       open(content: any) {
-        console.log("sort project list by "+content);
+        //console.log("sort project list by "+content);
         this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((response) => {
-          console.log("response.Project");
-          console.log("ProjectId:" + response['project'] + "," + response['firstName'] + "," + response['parentTask']);
+          //console.log("response.Project");
+          //console.log("ProjectId:" + response['project'] + "," + response['firstName'] + "," + response['parentTask']);
     
           if (response['project']) {
             console.log("response.Project:::::::"+response.project);
