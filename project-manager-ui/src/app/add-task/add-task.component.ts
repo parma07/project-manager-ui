@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../service/app.service';
 import { TaskModel } from '../model/task.model';
 import { UserModel } from '../model/user.model';
+import { Router } from '@angular/router';
 import { ParentTaskModel } from '../model/parent-task.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ProjectModel } from '../model/project.model';
@@ -22,6 +23,7 @@ export class AddTaskComponent implements OnInit{
     tempUser: UserModel;
     tempProject: ProjectModel;
     tempParentTask: ParentTaskModel;
+    isEditTask: boolean = false;
     alert: any = {
         type: 'success',
         msg: '',
@@ -34,7 +36,7 @@ export class AddTaskComponent implements OnInit{
       this.getUserList();
     }
 
-    constructor(private _appService: AppService, private modalService: NgbModal) { 
+    constructor(private _appService: AppService, private modalService: NgbModal,private router: Router) { 
         this.task = new TaskModel();
         this.task.priority='0';
         this.task.parentTask = new ParentTaskModel();
@@ -55,11 +57,10 @@ export class AddTaskComponent implements OnInit{
         //this.task.parentId = this.tempParentTask.parentId;
         //console.log("Project Form parent-taskId"+this.task.parentTask.parentId);
 
-
-
         this._appService.saveTask(this.task).subscribe(res => { 
            this.alert.msg= res.status;
-        })
+        });
+        this.router.navigate(['user']);
     }
 
     public reset():void{
@@ -67,7 +68,9 @@ export class AddTaskComponent implements OnInit{
         this.task.startDate='';
         this.task.priority='0';
         this.task.taskName='';
-        this.task.parentTask.parentTask=''
+        this.task.projectId='';
+        this.task.userId='';
+        this.task.parentTask.parentTask='';        
         this.task.parentTask.parentId='';
         this.alert.msg='';
       }
@@ -128,6 +131,10 @@ export class AddTaskComponent implements OnInit{
             this.projectList = res.outData;
         console.log("from findAllActiveProjects() with Project:"+this.projectList);
         });
+      }
+
+      toggle() {
+        this.isEditTask = true;        
       }
 
 

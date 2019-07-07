@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { UserModel } from '../model/user.model';
 import { AppService } from '../service/app.service';
+import { Router } from '@angular/router';
 import { SearchFilter } from '../model/search-filter.model';
 
 
@@ -29,24 +30,25 @@ export class UserComponent implements OnInit{
         this._appService.getUsers()
         .subscribe(res => {
         this.userList = res.outData;
-        console.log("from add User component:"+this.userList);
+        //console.log("from add User component:"+this.userList);
         });
     }
     
-    constructor(private _appService: AppService) { 
+    constructor(private _appService: AppService, private router: Router) { 
     this.user = new UserModel();    
     }
 
     public saveOrUpdateUser() : void{        
-        console.log("User Form Submitted"+this.user.employeeId);
+        //console.log("User Form Submitted"+this.user.employeeId);
         this._appService.saveUser(this.user).subscribe(res => {
             this.alert.msg= res.status;            
         });
-        this.getAllUser();
+        //this.getAllUser();
+        this.router.navigate(['user']);
     }
 
     public reset():void{
-        console.log("User Form reset");
+        //console.log("User Form reset");
         this.user.firstName='';
         this.user.lastName='';
         this.user.employeeId='';
@@ -55,7 +57,7 @@ export class UserComponent implements OnInit{
     }
 
     public availableForEdit(userId : string):void{
-        console.log("userid for edit:"+userId);
+        //console.log("userid for edit:"+userId);
         this.user=this.userList.find(u => u.userId==userId);
     }
 

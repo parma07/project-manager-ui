@@ -48,7 +48,7 @@ export class ProjectComponent implements OnInit{
     findAllUsersWithNoProject() {
         this._appService.getAllUsersWithNoProject()
         .subscribe(res => {
-            this.userList = res.outData;
+        this.userList = res.outData;
         //console.log("from add Porject component to get User List with no Project:"+this.userList);
         });
       }
@@ -70,15 +70,15 @@ export class ProjectComponent implements OnInit{
     }
 
     public saveOrUpdateProject() : void{        
-        console.log("Project Form Submitted"+this.project.project);
-        console.log("Project Form Submitted1"+this.project.manager);
-        console.log("this.project.editable:"+this.project.editable);
+        //console.log("Project Form Submitted"+this.project.project);
+        //console.log("Project Form Submitted1"+this.project.manager);
+        //console.log("this.project.editable:"+this.project.editable);
         if(this.project.editable !=null && this.project.editable == false){
           this.tempUser = this.userList.find(u => (u.firstName+" "+u.lastName)==this.project.manager);        
-          console.log("this.tempUser::::"+this.tempUser);
+          //console.log("this.tempUser::::"+this.tempUser);
           this.project.manager = this.tempUser.userId;
         }       
-        console.log("Project Form Submitted2"+this.project.manager);
+        //console.log("Project Form Submitted2"+this.project.manager);
         this._appService.saveProject(this.project).subscribe(res => {
           this.alert.msg= res.status; 
         });
@@ -145,8 +145,7 @@ export class ProjectComponent implements OnInit{
     }
 
     public availableForEdit(projectId : string):void{
-      //console.log("projectid for edit:"+projectId);
-      
+      //console.log("projectid for edit:"+projectId);      
       this.project=this.projectList.find(p => p.projectId==projectId);
       this.project.editable=true;
     }

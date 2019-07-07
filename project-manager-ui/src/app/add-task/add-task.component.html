@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-5">
           <input type="text" class="form-control mb-2 mr-sm-2" id="project" [(ngModel)]="task.projectId"
-            placeholder="Enter Projec id" name="project">
+            placeholder="Enter Projec id" name="project" [disabled]=true>
         </div>
         <div class="col-md-1">
           <button type="button" [disabled]="isEditTask || parentCheckbox" class="btn btn-secondary rounded-circle"
@@ -40,7 +40,7 @@
       <label for="parentTaskId" class="mb-2 mr-sm-1" >Parent Task:</label>
     </div>
     <div class="col-md-5">
-      <input type="text" class="form-control mb-2 mr-sm-2" id="parentTaskId"
+      <input type="text" class="form-control mb-2 mr-sm-2" id="parentTaskId" [disabled]=true
         placeholder="Enter Parent Task id" name="parentTaskId" [(ngModel)]="task.parentTask.parentTask">
     </div>
 
@@ -73,14 +73,14 @@
   <div class="form-group required row">
     <label for="startDate" class="col-sm-2 col-form-label">Start Date:</label>
     <div class="col-sm-6">
-      <input type="text"  name="startDate" class="form-control" placeholder="DD/MM/YYYY" id="startDate" [(ngModel)]="task.startDate" >
+      <input type="date"  name="startDate" class="form-control" placeholder="DD/MM/YYYY" id="startDate" [(ngModel)]="task.startDate" >
     </div>
   </div>
 
   <div class="form-group required row">
     <label for="endDate" class="col-sm-2 col-form-label">End Date:</label>
     <div class="col-sm-6">
-      <input type="text"  name="endDate" class="form-control" placeholder="DD/MM/YYYY" id="endDate" [(ngModel)]="task.endDate" required>
+      <input type="date"  name="endDate" class="form-control" placeholder="DD/MM/YYYY" id="endDate" [(ngModel)]="task.endDate" required>
     </div>
   </div>
 
@@ -89,7 +89,7 @@
       <label for="userId" class="mb-2 mr-sm-1">User:</label>
     </div>
     <div class="col-md-5">
-      <input type="text" class="form-control mb-2 mr-sm-2" id="userId"
+      <input type="text" class="form-control mb-2 mr-sm-2" id="userId" [disabled]=true
         placeholder="Enter User id" name="userId" [(ngModel)]="task.userId">
     </div>
 
@@ -103,7 +103,7 @@
 
   <div class="form-group row">
     <div class="col-sm-3"></div>
-    <button type="button" id="add" class="btn btn-secondary" [disabled]="(task.taskName==null ||task.taskName=='' || task.startDate==null|| task.startDate==''|| task.endDate==null|| task.endDate=='')" style="margin:10px" (click)="saveOrUpdateTask()">Add Task</button>
+    <button type="button" id="add" class="btn btn-secondary" [disabled]="(task.taskName==null ||task.taskName=='' || task.startDate==null|| task.startDate==''|| task.endDate==null|| task.endDate=='' || task.projectId==null || task.projectId=='' || task.userId==null || task.userId=='' || task.parentTask.parentTask==null || task.parentTask.parentTask=='' || task.priority==null || task.priority=='')" style="margin:10px" (click)="saveOrUpdateTask()">Add Task</button>
     <button type="button" id="reset" class="btn btn-secondary" style="margin:10px" (click)="reset()">Reset</button>
     <div class="col-sm-2"></div>
   </div>  

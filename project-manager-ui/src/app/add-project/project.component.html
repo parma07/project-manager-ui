@@ -41,7 +41,7 @@
                 <label for="projectId" >Manager:</label>
               </div>
               <div class="col-md-3">
-                <input type="text"name="userId" class="form-control mb-2 mr-sm-2" id="managerName"
+                <input type="text"name="userId" class="form-control mb-2 mr-sm-2" id="managerName" [disabled]=true
                   placeholder="Enter Manager name" [(ngModel)]="project.manager" name="managerName">                
               </div>
               <div class="col-md-4">
@@ -50,7 +50,7 @@
             </div>             
             <div class="form-group row">
             <div class="col-sm-3"></div>
-            <button type="button" id="add" class="btn btn-secondary" [disabled]="(project.project==null ||project.project=='' || project.manager==null || project.manager=='' || project.startDate==null || project.startDate=='' || project.endDate==null || project.endDate=='' )" 
+            <button type="button" id="add" class="btn btn-secondary" [disabled]="(project.project==null ||project.project=='' || project.manager==null || project.manager=='' || project.startDate==null || project.startDate=='' || project.endDate==null || project.endDate=='' || project.priority==null || project.priority=='')" 
               style="margin:10px" (click)="saveOrUpdateProject()">Add Project</button>
             <button type="button" id="reset" class="btn btn-secondary" style="margin:10px" (click)="reset()">Reset</button>
             <div class="col-sm-3"></div>
