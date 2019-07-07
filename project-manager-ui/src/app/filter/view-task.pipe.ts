@@ -8,9 +8,9 @@ import { TaskModel } from '../model/task.model';
     // ,pure:false
   })
 export class ViewTaskPipe implements PipeTransform {
-    transform(tasks: TaskModel[], searchString:String, parentTaskSearchString:String, startDateSearchString:string, endDateSearchString:string): any [] {    
+    transform(tasks: TaskModel[], searchString:String, parentTaskSearchString:String, startDateSearchString:string, endDateSearchString:string, projectSearchString:string): any [] {    
         console.log('val',searchString, parentTaskSearchString);
-        if (!searchString && !parentTaskSearchString && !startDateSearchString && !endDateSearchString) {
+        if (!searchString && !parentTaskSearchString && !startDateSearchString && !endDateSearchString && !projectSearchString) {
           return tasks;
         }
         if(searchString){
@@ -34,5 +34,10 @@ export class ViewTaskPipe implements PipeTransform {
           return (t.endDate.startsWith(endDateSearchString));
         })
        };
+       if(projectSearchString){
+        return tasks.filter(t =>{
+          return (t.projectId.startsWith(projectSearchString));
+        })
+      };
       }
 }
