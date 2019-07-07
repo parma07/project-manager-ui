@@ -42,6 +42,7 @@ export class UserComponent implements OnInit{
         this._appService.saveUser(this.user).subscribe(res => {
             this.alert.msg= res.status;            
         });
+        this.getAllUser();
     }
 
     public reset():void{
